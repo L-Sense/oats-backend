@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'oats.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'LSense_DB',
+        'USER': 'admin',
+        'PASSWORD': 'afor3002pls',
+        'HOST': "172.21.148.163",
+        'PORT': "5432",
     }
 }
 
