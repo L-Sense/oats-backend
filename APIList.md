@@ -18,6 +18,7 @@ DELETE | Content Cell
 Request Parameter: `null`
 
 Response Data:
+
     {
         "message": "success",
         "data": {
@@ -32,6 +33,7 @@ Response Data:
 Request Parameter: `null`
 
 Response Data:
+
     {
         "message": "success",
         "data": 
@@ -50,6 +52,7 @@ Response Data:
 Request Parameter: `null`
     
 Response Data:
+    
     {
         "message": "success",
         "data": 
