@@ -9,7 +9,7 @@ PUT | Content Cell
 DELETE | Content Cell
 
 ## Login Authentication
-<span style="color:red">some placeholder text</span>.
+
 
 ## Admin Dashboard
 
@@ -28,7 +28,7 @@ Response Data:
 
 ### All employee information
 #### `GET /employees/all`
-Request Parameter: `null`
+Request Parameter: `null` 
 Response Data:
     {
         "message": "success",
