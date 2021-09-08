@@ -16,6 +16,7 @@ DELETE | Content Cell
 ### Check In and Out Count information
 #### `GET /checkinandoutinformation`
 Request Parameter: `null`
+
 Response Data:
     {
         "message": "success",
@@ -28,7 +29,8 @@ Response Data:
 
 ### All employee information
 #### `GET /employees/all`
-Request Parameter: `null` 
+Request Parameter: `null`
+
 Response Data:
     {
         "message": "success",
@@ -46,6 +48,7 @@ Response Data:
 ### Get specific employee information
 #### `GET /employees/:id`
 Request Parameter: `null`
+    
 Response Data:
     {
         "message": "success",
@@ -72,6 +75,7 @@ Request Parameter:
         "new_name": "<Can be Old name>",
         "new_department": "Can be Old Department>"
     }
+    
 Response Data:
     {
         "message": "success",
