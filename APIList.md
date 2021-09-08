@@ -1,12 +1,12 @@
 # List of APIs required by front-end
 
 HTTP Methods used:
-First Header  | Second Header
-------------- | -------------
-POST | Create
-GET | Content Cell
-PUT | Content Cell
-DELETE | Content Cell
+| First Header  | Second Header |
+| ------------- | ------------- |
+| POST | Create |
+| GET | Content Cell |
+| PUT | Content Cell |
+| DELETE | Content Cell |
 
 ## Login Authentication
 
