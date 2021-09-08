@@ -77,6 +77,7 @@ Request Parameter:
     }
     
 Response Data:
+    
     {
         "message": "success",
     }
