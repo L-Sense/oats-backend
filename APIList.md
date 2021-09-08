@@ -4,9 +4,9 @@ HTTP Methods used:
 | First Header  | Second Header |
 | ------------- | ------------- |
 | POST | Create |
-| GET | Content Cell |
-| PUT | Content Cell |
-| DELETE | Content Cell |
+| GET | Read |
+| PUT | Update |
+| DELETE | Delete |
 
 ## Login Authentication
 
