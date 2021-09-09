@@ -7,7 +7,7 @@ from django.utils.timezone import now
 # and https://stackoverflow.com/questions/21128899/how-do-i-make-an-auto-increment-integer-field-in-django
 
 class Department(models.Model):
-    #department_id = models.AutoField(primary_key=True)
+    department_id = models.AutoField(primary_key=True)
     department_name = models.CharField(max_length=100)
     late_threshold = models.IntegerField()
     
@@ -16,7 +16,7 @@ class Department(models.Model):
     #    return self.department_name
 
 class Employee(models.Model):
-    #employee_id = models.AutoField(primary_key=True)
+    employee_id = models.AutoField(primary_key=True)
     employee_name = models.CharField(max_length=100)
     department_id = models.ForeignKey(Department,on_delete=models.CASCADE)
     image_1 = models.BinaryField()
@@ -25,18 +25,17 @@ class Employee(models.Model):
     image_3 = models.BinaryField(blank=True)
 
 class Admin(models.Model):
-    #admin_id = models.AutoField(primary_key=True)
+    admin_id = models.AutoField(primary_key=True)
     admin_name = models.CharField(max_length=100)
     username = models.CharField(max_length=100, unique=True)
     password = models.CharField(max_length=100, null=False)
 
 class Attendance(models.Model):
-    #attendance_id = models.AutoField(primary_key=True)
+    attendance_id = models.AutoField(primary_key=True)
     employee_id = models.ForeignKey(Employee,on_delete=models.CASCADE)
     #Deletes entries when referenced employee is deleted
     date = models.DateField(default=now)
     time = models.TimeField(default=now)
     #Or datetime = models.DateTimeField(default=now)
     flag = models.BooleanField()
-    #What is flag?
     attendance_status = models.BooleanField()
