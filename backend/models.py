@@ -18,9 +18,8 @@ class Department(models.Model):
 class Employee(models.Model):
     employee_id = models.AutoField(primary_key=True)
     employee_name = models.CharField(max_length=100)
-    department_id = models.ForeignKey(Department,on_delete=models.CASCADE)
-    image_1 = models.BinaryField()
-    #Allow blank values for images 2 and 3
+    department = models.ForeignKey(Department, on_delete=models.CASCADE) # deletes entries when referenced department is deleted
+    image_1 = models.BinaryField() # allow blank values for images 2 and 3
     image_2 = models.BinaryField(blank=True)
     image_3 = models.BinaryField(blank=True)
 
@@ -32,10 +31,8 @@ class Admin(models.Model):
 
 class Attendance(models.Model):
     attendance_id = models.AutoField(primary_key=True)
-    employee_id = models.ForeignKey(Employee,on_delete=models.CASCADE)
-    #Deletes entries when referenced employee is deleted
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE) # deletes entries when referenced employee is deleted
     date = models.DateField(default=now)
     time = models.TimeField(default=now)
-    #Or datetime = models.DateTimeField(default=now)
     flag = models.BooleanField()
-    attendance_status = models.BooleanField()
+    type = models.BooleanField()
