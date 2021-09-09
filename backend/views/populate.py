@@ -1,4 +1,5 @@
 from django.http import JsonResponse
+from django.db import connection
 
 from backend.models import *
 
@@ -7,6 +8,14 @@ def image_to_bytea(image):
         f = img.read()
         b = bytearray(f)
         return b
+
+def reset_index():
+    with connection.cursor() as cursor:
+        cursor.execute("TRUNCATE TABLE backend_department RESTART IDENTITY CASCADE")
+        cursor.execute("TRUNCATE TABLE backend_employee RESTART IDENTITY CASCADE")
+        cursor.execute("TRUNCATE TABLE backend_attendance RESTART IDENTITY CASCADE")
+        cursor.execute("TRUNCATE TABLE backend_admin RESTART IDENTITY CASCADE")
+    return
 
 def populate_everything(request):
     department_one = Department.objects.create(department_name='SCSE', late_threshold=15)
@@ -20,10 +29,7 @@ def populate_everything(request):
     }, status=200)
 
 def truncate_everything(request):
-    truncate_attendance = Attendance.objects.all().delete()
-    truncate_employee = Employee.objects.all().delete()
-    truncate_department = Department.objects.all().delete()
-    truncate_admin = Admin.objects.all().delete()
+    truncate = reset_index()
     return JsonResponse({
         'message': 'Tables truncated successfully.'
     }, status=200)
