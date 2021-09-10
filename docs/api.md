@@ -315,3 +315,24 @@ Response Data:
         "message": "attendance already recorded",
         "status": 500
     }
+
+## Image Retrieval
+
+### Retrieve all the images in the database to be stored locally
+
+#### `GET /image`
+
+Request Parameter: `null`
+
+Response Data:
+
+    {
+        "message": "images retrieved",
+        "data":
+            [
+                {
+                    "image": "<base64 image string>",
+                    "file_name": <file_name>
+                }
+            ]
+    }
