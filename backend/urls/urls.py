@@ -1,5 +1,6 @@
 from django.urls import path
-from backend.views import views, populate
+from backend.views import views
+from backend.views.populate import populate
 
 urlpatterns = [
     path('', views.hello_world, name="hello_world"),
