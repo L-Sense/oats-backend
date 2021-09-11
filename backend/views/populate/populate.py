@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from django.db import connection
+from datetime import datetime
 
 from backend.models import *
 
@@ -20,9 +21,9 @@ def reset_index():
 def populate_everything(request):
     department_one = Department.objects.create(department_name='SCSE', late_threshold=15)
     department_two = Department.objects.create(department_name='SPMS', late_threshold=15)
-    employee_one = Employee.objects.create(employee_name='Koh Boon Juey', department_id=1, image_1=image_to_bytea("backend/views/U1921258H_2.jpg"))
-    employee_two = Employee.objects.create(employee_name='Leonardo Irvin Pratama', department_id=1, image_1=image_to_bytea("backend/views/U1920301J_1.jpg"))
-    attendance_one = Attendance.objects.create(flag=False, type=True, employee_id=1)
+    employee_one = Employee.objects.create(employee_name='Koh Boon Juey', department_id=1, image_1=image_to_bytea("backend/views/populate/U1921258H_2.jpg"))
+    employee_two = Employee.objects.create(employee_name='Leonardo Irvin Pratama', department_id=1, image_1=image_to_bytea("backend/views/populate/U1920301J_1.jpg"))
+    attendance_one = Attendance.objects.create(employee_id=1, in_time=datetime.now().time())
     # TO-DO: I'm not sure what type of hashing you would want to implement here
     return JsonResponse({
         'message': 'Data inserted successfully.'

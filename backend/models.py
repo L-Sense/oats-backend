@@ -30,9 +30,14 @@ class Admin(models.Model):
     password = models.CharField(max_length=100, null=False)
 
 class Attendance(models.Model):
+    STATUS = (
+        ('Normal', 'Normal'),
+        ('Abnormal', 'Abnormal'),
+        ('Leave', 'Leave')
+    )
     attendance_id = models.AutoField(primary_key=True)
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE) # deletes entries when referenced employee is deleted
     date = models.DateField(default=now)
-    time = models.TimeField(default=now)
-    flag = models.BooleanField()
-    type = models.BooleanField()
+    in_time = models.TimeField(null=True)
+    out_time = models.TimeField(null=True)
+    status = models.CharField(max_length=100, choices=STATUS, default="Normal")
