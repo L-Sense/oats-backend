@@ -149,9 +149,26 @@ Response Data:
         "error": "<error message .toString()>"
     }
 
-### Check in and out count information
+### Check in and out count information today
 
-#### `GET /attendance/checkinout`
+#### `GET /attendance/counttoday`
+
+Request Parameter: `null`
+
+Response Data:
+
+    {
+        "message": "attendance retrieved",
+        "data": {
+            "checked_in_today_count": 7,
+            "checked_out_today_count": 8,
+            "total_employees": 29
+        }
+    }
+
+### Check in and out count information based on a given date
+
+#### `GET /attendance/countdate`
 
 Request Parameter:
 
@@ -172,13 +189,9 @@ Response Data:
 
 ### Get current date's attendance record
 
-#### `GET /attendance/aggregate`
+#### `GET /attendance/gettoday`
 
-Request Parameter:
-
-    {
-        "date": "<date>",
-    }
+Request Parameter: `null`
 
 Response Data:
 
@@ -205,7 +218,7 @@ Response Data:
 
 ### Get specific date's attendance record
 
-#### `GET /attendance/date`
+#### `GET /attendance/getdate`
 
 Request Parameter:
 
@@ -243,18 +256,17 @@ Response Data:
 Request Parameter:
 
     {
-        "date": "<date>",
         "employee_id": "<employee_id>",
         "date": "<date>",
-        "time": "<time>",
-        "check_in_out": "<boolean>",
-        "status_flag": "<boolean>"
+        "in_time": "<time>",
+        "out_time": "<time>",
+        "status": "<string>"
     }
 
 Response Data:
 
     {
-        "message": "attendance successfully added",
+        "message": "attendance recorded",
         "attendance_id": "<attendance_id>"
     }
 
@@ -270,13 +282,14 @@ Response Data:
 Request Parameter:
 
     {
-        "attendance_id": "<attendance_id>"
+        "employee_id": "<employee_id>",
+        "date": "<date>",
     }
 
 Response Data:
 
     {
-        "message": "success",
+        "message": "attendance record deleted successfully",
         "attendance_id": "<attendance_id>"
     }
 

@@ -7,5 +7,7 @@ urlpatterns = [
     path('populate/', populate.populate_everything, name="populate"),
     path('truncate/', populate.truncate_everything, name="truncate"),
     path('attendance/', attendance.get_all, name="view_attendance"),
-    path('attendance/checkinout/', attendance.check_in_out, name="view_checkinout")
+    path('attendance/counttoday/', attendance.count_today, name="count_today"),
+    path('attendance/countdate/', attendance.count_date, name="count_date"),
+    path('attendance/gettoday/', attendance.get_today, name="get_today")
 ]
