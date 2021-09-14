@@ -9,5 +9,7 @@ urlpatterns = [
     path('attendance/', attendance.get_all, name="view_attendance"),
     path('attendance/counttoday/', attendance.count_today, name="count_today"),
     path('attendance/countdate/', attendance.count_date, name="count_date"),
-    path('attendance/gettoday/', attendance.get_today, name="get_today")
+    path('attendance/gettoday/', attendance.get_today, name="get_today"),
+    path('attendance/getdate/', attendance.get_date, name="get_date"),
+    path('attendance/updatestatus/', attendance.update_status, name="update_status")
 ]

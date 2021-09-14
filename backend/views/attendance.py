@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser 
 
-from backend.models import Attendance, Employee
+from backend.models import Attendance, Employee, Department
 from backend.serializers import *
 
 from datetime import datetime, date
@@ -18,8 +18,9 @@ def get_all(request):
         })
     elif request.method == 'POST':
         attendance_data = JSONParser().parse(request)
+        attendance_serializer = AttendanceSerializer(data=attendance_data)
         try:
-            attendance = Attendance.objects.filter(date=date.today()).get(employee=attendance_data['employee'])
+            attendance = Attendance.objects.filter(date=attendance_serializer['employee']).get(employee=attendance_serializer['employee'])
             return Response({
                 "message": "attendance record already found"
             })
@@ -36,10 +37,10 @@ def get_all(request):
             })
     elif request.method == 'DELETE':
         attendance_data = JSONParser().parse(request)
-        attendance_serializer = AttendanceDeleteSerializer(data=attendance_data)
+        attendance_serializer = AttendanceSelectSerializer(data=attendance_data)
         if attendance_serializer.is_valid():
             try:
-                attendance = Attendance.objects.filter(date=attendance_data['date']).get(employee=attendance_data['employee'])
+                attendance = Attendance.objects.filter(date=attendance_serializer['date']).get(employee=attendance_serializer['employee'])
                 attendance.delete()
                 return Response({
                     "message": "attendance record deleted successfully"
@@ -69,9 +70,9 @@ def count_today(request):
 @api_view(['GET'])
 def count_date(request):
     date = request.query_params['date']
-    date_strip = datetime.strptime(date, "%d/%m/%Y").date()
-    len_in = Attendance.objects.filter(date=date_strip).filter(in_time__isnull=False).count()
-    len_out = Attendance.objects.filter(date=date_strip).filter(in_time__isnull=False).filter(out_time__isnull=False).count()
+    parsed_date = datetime.strptime(date, "%d/%m/%Y").date()
+    len_in = Attendance.objects.filter(date=parsed_date).filter(in_time__isnull=False).count()
+    len_out = Attendance.objects.filter(date=parsed_date).filter(in_time__isnull=False).filter(out_time__isnull=False).count()
     employee_count = Employee.objects.all().count()
     return Response({
         "message": "attendance retrieved",
@@ -85,12 +86,85 @@ def count_date(request):
 @api_view(['GET'])
 def get_today(request):
     employee = Employee.objects.all()
-    attendance = Attendance.objects.filter(date=date.today())
-    print(attendance.query) #left join employee to attendance 
-    #serializer = AttendanceSerializer(attendance, many=True)
+    data = []
+    for person in employee:
+        try:
+            print(person.employee_id)
+            attendance = Attendance.objects.filter(date=date.today()).get(employee=person.employee_id)
+            info = {
+                "employee_id": person.employee_id,
+                "employee_name": person.employee_name,
+                "department_name": Department.objects.get(pk=person.department_id).department_name,
+                "in_time": attendance.in_time,
+                "out_time": attendance.out_time,
+                "status": attendance.status
+            }
+        except Attendance.DoesNotExist:
+            info = {
+                "employee_id": person.employee_id,
+                "employee_name": person.employee_name,
+                "department_name": Department.objects.get(pk=person.department_id).department_name,
+                "in_time": None,
+                "out_time": None,
+                "status": "No Show"
+            }
+        data.append(info)
     return Response({
         "message": "attendance retrieved",
-        #"data": serializer.data
+        "data": data
     })
 
-# https://www.bezkoder.com/django-rest-api/
+@api_view(['GET'])
+def get_date(request):
+    date = request.query_params['date']
+    parsed_date = datetime.strptime(date, "%d/%m/%Y").date()
+    employee = Employee.objects.all()
+    data = []
+    for person in employee:
+        try:
+            attendance = Attendance.objects.filter(date=parsed_date).get(employee=person.employee_id)
+            info = {
+                "employee_id": person.employee_id,
+                "employee_name": person.employee_name,
+                "department_name": Department.objects.get(pk=person.department_id).department_name,
+                "in_time": attendance.in_time,
+                "out_time": attendance.out_time,
+                "status": attendance.status
+            }
+        except:
+            info = {
+                "employee_id": person.employee_id,
+                "employee_name": person.employee_name,
+                "department_name": Department.objects.get(pk=person.department_id).department_name,
+                "in_time": None,
+                "out_time": None,
+                "status": "No Show"
+            }
+        data.append(info)
+    return Response({
+        "message": "attendance retrieved",
+        "data": data
+    })
+
+@api_view(['POST'])
+def update_status(request):
+    attendance_data = JSONParser().parse(request)
+    attendance_serializer = AttendanceStatusSerializer(data=attendance_data)
+    if attendance_serializer.is_valid():
+        try:
+            attendance = Attendance.objects.filter(date=attendance_serializer['date']).get(employee=attendance_serializer['employee'])
+            attendance.status = attendance_serializer['status']
+            attendance.save()
+            return Response({
+                "message": "status changed",
+                "data": attendance.data
+            })
+        except Attendance.DoesNotExist:
+            attendance_serializer.save()
+            return Response({
+                "message": "status recorded",
+                "data": attendance_serializer.data
+            })
+    return Response({
+            "message": "invalid input"
+        })

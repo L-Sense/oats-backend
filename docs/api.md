@@ -249,7 +249,42 @@ Response Data:
         "error": "<error message .toString()>"
     }
 
-### Update attendance status flag of employee manually
+### Update attendance status manually
+
+#### `POST /attendance/updatestatus`
+
+Request Parameter:
+
+    {
+        "date": "<date>",
+        "employee_id": <employee_id>,
+        "status": <status>
+    }
+
+Response Data:
+
+    {
+        "message": "attendance retrieved",
+        "data":
+            [
+                {
+                    "attendance_id": "<attendance_id>,
+                    "employee_id": "<employee_id>",
+                    "employee_name": "<employee_name>",
+                    "department_id": "<department_id>",
+                    "department_name": "<department_name>",
+                    "check_in_out": "<boolean>",
+                    "status_flag": "<Punctual, AWOL, Late, Leave, MC>",
+                }
+            ]
+    }
+
+    {
+        "message": "fail",
+        "error": "<error message .toString()>"
+    }
+
+### Add attendance record of employee manually
 
 #### `POST /attendance`
 
