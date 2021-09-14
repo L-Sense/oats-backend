@@ -21,3 +21,13 @@ class AttendanceDateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Attendance
         fields = ['date']
+
+class EmployeeCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employee
+        fields = ['employee_name', 'department', 'image_1', 'image_2', 'image_3']
+
+class EmployeeUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employee
+        fields = ['employee_name', 'department']
