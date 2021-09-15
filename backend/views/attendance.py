@@ -89,7 +89,6 @@ def get_today(request):
     data = []
     for person in employee:
         try:
-            print(person.employee_id)
             attendance = Attendance.objects.filter(date=date.today()).get(employee=person.employee_id)
             info = {
                 "employee_id": person.employee_id,
