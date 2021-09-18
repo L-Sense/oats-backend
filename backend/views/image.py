@@ -14,6 +14,16 @@ def get_all(request):
     serializer = ImageSerializer(image, many=True)
     for employee in image:
         file_name = dl_2(employee.image_1, employee.employee_id, 1)
+        
+        '''byte_data = employee.image_1.tobytes()
+        print(byte_data[0:20])
+        print(len(byte_data))
+        print(byte_data[-20:-1])
+        file_name = dl_2(byte_data, employee.employee_id, 1)
+        print(file_name)
+        with open("Test.jpg", 'wb') as f:
+            f.write(base64.b64decode(employee.image_1))'''
+        
     return Response({
         "message": "images retrieved",
         "data": serializer.data
