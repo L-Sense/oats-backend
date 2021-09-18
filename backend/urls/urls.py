@@ -1,5 +1,5 @@
 from django.urls import path
-from backend.views import views, attendance, employee
+from backend.views import views, attendance, employee, image
 from backend.views.populate import populate
 
 urlpatterns = [
@@ -18,5 +18,7 @@ urlpatterns = [
     path('employee/<str:employee_id>', employee.get_one, name="get_one"),
     path('employee/create/<str:employee_id>', employee.create, name="create_employee"),
     path('employee/update/<str:employee_id>', employee.update, name="update_employee"),
-    #path('employee/getimage', employee.get_image, name="view_image")
+    #path('employee/getimage', employee.get_image, name="view_image"),
+
+    path('image/', image.get_all, name="view_images")
 ]

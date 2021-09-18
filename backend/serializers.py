@@ -31,3 +31,9 @@ class EmployeeUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
         fields = ['employee_name', 'department']
+
+
+class ImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employee
+        fields = ['employee_id', 'image_1', 'image_2', 'image_3']
