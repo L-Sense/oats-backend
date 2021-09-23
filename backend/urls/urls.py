@@ -1,5 +1,5 @@
 from django.urls import path
-from backend.views import views, attendance, employee, admin
+from backend.views import views, attendance, employee, admin, image
 from backend.views.populate import populate
 
 urlpatterns = [
@@ -25,5 +25,7 @@ urlpatterns = [
 
     path('auth/check', admin.check, name="check"),
     path('auth/register', admin.register_admin, name="register_admin"),
-    path('auth/login', admin.login_admin, name="login_admin")
+    path('auth/login', admin.login_admin, name="login_admin"),
+
+    path('image/', image.get_all, name="view_images"),
 ]

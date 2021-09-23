@@ -52,3 +52,9 @@ class AdminLoginSerializer(serializers.ModelSerializer):
         model = Admin
         fields = ['username', 'password']
         extra_kwargs = {'username': {'validators': []}, }
+
+
+class ImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employee
+        fields = ['employee_id', 'image_1', 'image_2', 'image_3']
