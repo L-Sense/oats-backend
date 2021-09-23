@@ -1,3 +1,4 @@
+from datetime import datetime
 from os import error
 import jwt
 from rest_framework.response import Response
@@ -9,7 +10,8 @@ def token_required(func):
         try:
             token = request.headers.get('Authorization')
             payload = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
-            if (payload and payload.get('exp')):
+            payload_exp = datetime.fromtimestamp(payload.get('exp'))
+            if (payload and datetime.now() < payload_exp):
                 return func(request, *args, **kwargs)
             return Response({
                 "message": "invalid token",
@@ -17,7 +19,7 @@ def token_required(func):
             })
         except:
             return Response({
-                "message": "invalid token",
+                "message": "server error",
                 "data": []
             })
     return inner
