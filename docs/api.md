@@ -12,7 +12,7 @@ HTTP Methods used:
 
 ### Register
 
-#### `POST /admin/register`
+#### `POST /auth/register`
 
 Request Parameter:
 
@@ -31,7 +31,7 @@ Response Data:
 
 ### Login
 
-#### `POST /admin/login`
+#### `POST /auth/login`
 
 Request Parameter:
 
