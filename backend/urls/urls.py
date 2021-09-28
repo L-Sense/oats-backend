@@ -1,6 +1,6 @@
 from os import X_OK
 from django.urls import path
-from backend.views import views, attendance, employee, admin, image
+from backend.views import views, attendance, employee, admin, image, scanner
 from backend.views.populate import populate
 
 urlpatterns = [
@@ -11,7 +11,7 @@ urlpatterns = [
     path('auth/check', admin.check, name="check"),
     path('auth/register', admin.register_admin, name="register_admin"),
     path('auth/login', admin.login_admin, name="login_admin"),
-    
+
     path('employee', employee.get_all, name="view_employees"),
     path('employee/<str:employee_id>', employee.get_one, name="get_one"),
     path('employee/create/<str:employee_id>',
@@ -29,4 +29,5 @@ urlpatterns = [
          attendance.update_status, name="update_status"),
 
     path('image/', image.get_all, name="view_images"),
+    path('scanner/', scanner.scanner_photo, name="scanner_photo"),
 ]
