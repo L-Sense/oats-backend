@@ -16,10 +16,10 @@ def token_required(func):
             return Response({
                 "message": "invalid token",
                 "data": []
-            })
+            }, 401)
         except:
             return Response({
-                "message": "server error",
+                "message": "token not found",
                 "data": []
-            })
+            }, 401)
     return inner

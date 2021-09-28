@@ -15,12 +15,10 @@ from backend.models import Admin
 @api_view(['GET'])
 @token_required
 def check(request):
-    obj = Admin.objects.all()
-    obj = AdminRegisterSerializer(obj, many=True)
     return Response({
-        "message": "attendance retrieved",
-        "data": obj.data
-    })
+        "message": "authorized",
+        "data": []
+    }, 200)
 
 
 @api_view(['POST'])

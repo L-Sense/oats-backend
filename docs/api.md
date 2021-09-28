@@ -50,6 +50,21 @@ Response Data:
             },
     }
 
+### Authorize User
+
+#### `GET /auth/check`
+
+Request Parameter:
+
+    {}
+
+Response Data:
+
+    {
+        "message": "authorized",
+        "data":[]
+    }
+
 ## Admin Dashboard
 
 ### All employee information
