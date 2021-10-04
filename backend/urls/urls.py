@@ -14,8 +14,7 @@ urlpatterns = [
 
     path('employee', employee.get_all, name="view_employees"),
     path('employee/<str:employee_id>', employee.get_one, name="get_one"),
-    path('employee/create/<str:employee_id>',
-         employee.create, name="create_employee"),
+    path('employee/create/', employee.create, name="create_employee"),
     path('employee/update/<str:employee_id>',
          employee.update, name="update_employee"),
     #path('employee/getimage', employee.get_image, name="view_image")
