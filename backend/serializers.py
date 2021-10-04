@@ -31,7 +31,7 @@ class AttendanceDateSerializer(serializers.ModelSerializer):
 class EmployeeCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
-        fields = ['employee_name', 'department',
+        fields = ['employee_name', 'department_id',
                   'image_1', 'image_2', 'image_3']
 
 
