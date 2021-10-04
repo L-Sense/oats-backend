@@ -53,7 +53,26 @@ def get_one(request, employee_id):
         })
 
 @api_view(['POST'])
-def create(request, employee_id):
+def create(request):
+     #It should save it to server's localhost.
+    employee_data = JSONParser().parse(request)
+    try:
+        employee_serializer = EmployeeCreateSerializer(data=employee_data)
+        if employee_serializer.is_valid():
+            employee_serializer.save()
+            return Response({
+                "message": "new employee created",
+                "data": employee_serializer.data
+            })
+        return Response({
+            "message": "invalid input"
+        })
+    except:
+        return Response({
+            "message": "an error has occurred"
+        })
+"""
+def create(request):
      #It should save it to server's localhost.
     employee_data = JSONParser().parse(request)
     try:
@@ -72,7 +91,9 @@ def create(request, employee_id):
         return Response({
             "message": "invalid input"
         })
-
+"""
+    
+    
 @api_view(['PUT'])
 def update(request, employee_id):
     original_id = employee_id
