@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-c#ny!54ea5m9z(99z!5k3dbc29@&!e)y$nf)zt)5a34ma1_5ok
 DEBUG = True
 
 ALLOWED_HOSTS = []
+CORS_ORIGIN_ALLOW_ALL = True
 
 
 # Application definition
@@ -38,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'backend',
-    'rest_framework'
+    'rest_framework',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -49,6 +51,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware'
 ]
 
 ROOT_URLCONF = 'oats.urls'
