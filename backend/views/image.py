@@ -16,6 +16,9 @@ def get_all(request):
     image = Employee.objects.all()
     serializer = ImageSerializer(image, many=True)
 
+    if not os.path.exists('images'):
+        os.makedirs('images')
+
     '''for employee in image:
         file_name = decode_image(employee.image_1, employee.employee_id, 1)
         
@@ -29,12 +32,12 @@ def get_all(request):
             f.write(base64.b64decode(employee.image_1))'''
     
     # Writes to a json
-    with open("employee_images.json", "w") as out:
+    with open(os.path.join("images/", "employee_images.json"), "w") as out:
         data = core_serializers.serialize("json", image)
         out.write(data)
     
     # Reads back the json...
-    with open('employee_images.json', 'r') as f:
+    with open(os.path.join("images/", "employee_images.json"), 'r') as f:
         employee_json = json.load(f)
     
     # Decodes each binary to image for each employee
@@ -67,6 +70,7 @@ def decode_image(image_binary, employee_id, image_count):
     # Can re-write file_name later to save elsewhere, e.g. some static folder
     file_name = 'employee_' + str(employee_id) + '_' + str(image_count) + '.jpg'
 
-    with open(file_name, 'wb') as f:
+    with open(os.path.join("images/", file_name), 'wb') as f:
         f.write(image)
+
     return(file_name)
