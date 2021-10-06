@@ -9,6 +9,7 @@ from backend.models import Attendance, Employee, Department
 from backend.serializers import *
 
 import os
+import shutil
 import base64
 
 @api_view(['GET'])
@@ -16,8 +17,8 @@ def get_all(request):
     image = Employee.objects.all()
     serializer = ImageSerializer(image, many=True)
 
-    if not os.path.exists('images'):
-        os.makedirs('images')
+    shutil.rmtree('images')
+    os.makedirs('images')
 
     '''for employee in image:
         file_name = decode_image(employee.image_1, employee.employee_id, 1)
