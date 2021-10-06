@@ -15,7 +15,6 @@ def reset_index():
         cursor.execute("TRUNCATE TABLE backend_department RESTART IDENTITY CASCADE")
         cursor.execute("TRUNCATE TABLE backend_employee RESTART IDENTITY CASCADE")
         cursor.execute("TRUNCATE TABLE backend_attendance RESTART IDENTITY CASCADE")
-        cursor.execute("TRUNCATE TABLE backend_admin RESTART IDENTITY CASCADE")
     return
 
 def populate_everything(request):
