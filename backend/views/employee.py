@@ -8,25 +8,40 @@ from backend.models import Attendance, Employee, Department
 from backend.serializers import *
 
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def get_all(request):
-    employee = Employee.objects.all()
-    data = []
-    for person in employee:
-        print(person.employee_id)
-        info = {
-            "employee_id": person.employee_id,
-            "employee_name": person.employee_name,
-            "department_id": person.department_id,
-            "department_name": Department.objects.get(pk=person.department_id).department_name,
-            "avatar": "Image of the guy?"
-        }
-        data.append(info)
+    if request.method == "GET":
+        employee = Employee.objects.all()
+        data = []
+        for person in employee:
+            print(person.employee_id)
+            info = {
+                "employee_id": person.employee_id,
+                "employee_name": person.employee_name,
+                "department_id": person.department_id,
+                "department_name": Department.objects.get(pk=person.department_id).department_name,
+                "avatar": "Image of the guy?"
+            }
+            data.append(info)
 
-    return Response({
-        "message": "all employee data retrieved",
-        "data": data
-    })
+        return Response({
+            "message": "all employee data retrieved",
+            "data": data
+        })
+    elif request.method == "POST":
+        employee_data = JSONParser().parse(request)
+        employee_serializer = EmployeeCreateSerializer(data=employee_data)
+        if employee_serializer.is_valid():
+            print(employee_serializer)
+            employee_serializer.save()
+            return Response({
+                "message": "new employee created",
+                "data": employee_serializer.data
+            })
+        else:
+            return Response({
+                "message": "invalid input"
+            })
 
 @api_view(['GET'])
 def get_one(request, employee_id):
@@ -56,20 +71,16 @@ def get_one(request, employee_id):
 def create(request):
      #It should save it to server's localhost.
     employee_data = JSONParser().parse(request)
-    try:
-        employee_serializer = EmployeeCreateSerializer(data=employee_data)
-        if employee_serializer.is_valid():
-            employee_serializer.save()
-            return Response({
-                "message": "new employee created",
-                "data": employee_serializer.data
-            })
+    employee_serializer = EmployeeCreateSerializer(data=employee_data)
+    if employee_serializer.is_valid():
+        employee_serializer.save()
+        return Response({
+            "message": "new employee created",
+            "data": employee_serializer.data
+        })
+    else:
         return Response({
             "message": "invalid input"
-        })
-    except:
-        return Response({
-            "message": "an error has occurred"
         })
 """
 def create(request):
@@ -96,28 +107,25 @@ def create(request):
     
 @api_view(['PUT'])
 def update(request, employee_id):
-    original_id = employee_id
     employee_data = JSONParser().parse(request)
-    try:
-        employee = Employee.objects.get(employee_id=employee_data['employee_id'])
-        if employee.employee_id != original_id:
-            print(employee.employee_id, type(employee.employee_id))
-            # If you want to change your employee id to another, existing employee id that is not your own
+    employee_serializer = EmployeeUpdateSerializer(data=employee_data)
+    if employee_serializer.is_valid():
+        try:
+            employee = Employee.objects.get(employee_id=employee_id)
+            employee.employee_name = employee_serializer.validated_data['employee_name']
+            employee.department = employee_serializer.validated_data['department']
+            employee.save()
             return Response({
-                "message": "employee record already found"
+                "message": "employee data updated",
+                "data": employee.employee_id
+            })
+        except Employee.DoesNotExist:
+            return Response({
+                "message": "employee does not exist"
+            })
+    return Response({
+            "message": "invalid input"
         })
-        else:
-            raise
-    except:
-        employee = Employee.objects.get(employee_id=original_id)
-        employee.employee_name = employee_data['employee_name']
-        employee.department = Department.objects.get(department_id=employee_data['department'])
-        employee.save()
-        return Response({
-            "message": "employee data updated",
-            "data": employee
-        })
-
 
 """
 # For displaying employee image. Not complete.
