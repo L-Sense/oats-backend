@@ -20,7 +20,7 @@ def get_all(request):
         attendance_data = JSONParser().parse(request)
         attendance_serializer = AttendanceSerializer(data=attendance_data)
         try:
-            attendance = Attendance.objects.filter(date=attendance_serializer['employee']).get(employee=attendance_serializer['employee'])
+            attendance = Attendance.objects.filter(date=attendance_serializer.validated_data['employee']).get(employee=attendance_serializer.validated_data['employee'])
             return Response({
                 "message": "attendance record already found"
             })
@@ -148,15 +148,16 @@ def get_date(request):
 @api_view(['POST'])
 def update_status(request):
     attendance_data = JSONParser().parse(request)
+    attendance_data['date'] = datetime.strptime(attendance_data['date'], "%d/%m/%Y").date()
     attendance_serializer = AttendanceStatusSerializer(data=attendance_data)
     if attendance_serializer.is_valid():
         try:
-            attendance = Attendance.objects.filter(date=attendance_serializer['date']).get(employee=attendance_serializer['employee'])
-            attendance.status = attendance_serializer['status']
+            attendance = Attendance.objects.filter(date=attendance_serializer.validated_data['date']).get(employee=attendance_serializer.validated_data['employee'])
+            attendance.status = attendance_serializer.validated_data['status']
             attendance.save()
             return Response({
                 "message": "status changed",
-                "data": attendance.data
+                "data": attendance.employee_id
             })
         except Attendance.DoesNotExist:
             attendance_serializer.save()
