@@ -18,23 +18,18 @@ def get_all(request):
         })
     elif request.method == 'POST':
         attendance_data = JSONParser().parse(request)
+        attendance_data['date'] = datetime.strptime(attendance_data['date'], "%d/%m/%Y").date()
         attendance_serializer = AttendanceSerializer(data=attendance_data)
-        try:
-            attendance = Attendance.objects.filter(date=attendance_serializer.validated_data['employee']).get(employee=attendance_serializer.validated_data['employee'])
+        if attendance_serializer.is_valid():
+            attendance_serializer.save()
             return Response({
-                "message": "attendance record already found"
-            })
-        except Attendance.DoesNotExist:
-            attendance_serializer = AttendanceSerializer(data=attendance_data)
-            if attendance_serializer.is_valid():
-                attendance_serializer.save()
-                return Response({
-                    "message": "attendance recorded",
+                    "message": "attendance posted",
                     "data": attendance_serializer.data
                 })
+        else:
             return Response({
-                "message": "invalid input"
-            })
+                    "message": "invalid input"
+                })
     elif request.method == 'DELETE':
         attendance_data = JSONParser().parse(request)
         attendance_serializer = AttendanceSelectSerializer(data=attendance_data)
