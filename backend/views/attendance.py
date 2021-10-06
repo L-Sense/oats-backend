@@ -40,7 +40,7 @@ def get_all(request):
         attendance_serializer = AttendanceSelectSerializer(data=attendance_data)
         if attendance_serializer.is_valid():
             try:
-                attendance = Attendance.objects.filter(date=attendance_serializer['date']).get(employee=attendance_serializer['employee'])
+                attendance = Attendance.objects.filter(date=attendance_serializer.validated_data['date']).get(employee=attendance_serializer.validated_data['employee'])
                 attendance.delete()
                 return Response({
                     "message": "attendance record deleted successfully"
