@@ -100,7 +100,7 @@ def get_today(request):
                 "department_name": Department.objects.get(pk=person.department_id).department_name,
                 "in_time": None,
                 "out_time": None,
-                "status": "No Show"
+                "status": "Leave"
             }
         data.append(info)
     return Response({
