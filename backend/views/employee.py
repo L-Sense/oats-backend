@@ -32,7 +32,6 @@ def get_all(request):
         employee_data = JSONParser().parse(request)
         employee_serializer = EmployeeCreateSerializer(data=employee_data)
         if employee_serializer.is_valid():
-            print(employee_serializer)
             employee_serializer.save()
             return Response({
                 "message": "new employee created",
