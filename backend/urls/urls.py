@@ -26,6 +26,6 @@ urlpatterns = [
     path('attendance/updatestatus',
          attendance.update_status, name="update_status"),
 
-    path('image/', image.get_all, name="view_images"),
-    path('scanner/', scanner.scanner_photo, name="scanner_photo"),
+    path('image', image.get_all, name="view_images"),
+    path('scanner', scanner.scanner_photo, name="scanner_photo")
 ]

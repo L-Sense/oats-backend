@@ -17,7 +17,8 @@ def get_all(request):
     image = Employee.objects.all()
     serializer = ImageSerializer(image, many=True)
 
-    shutil.rmtree('images')
+    if os.path.exists("images"):
+        shutil.rmtree('images')
     os.makedirs('images')
 
     '''for employee in image:
