@@ -1,18 +1,13 @@
 from rest_framework import serializers
+from rest_framework.response import Response
 
 from backend.models import *
 
 import base64
+import os
+import shutil
 
-
-class BinaryField(serializers.Field):
-    def to_representation(self, value):
-        print("Pases here")
-        return str(value)
-
-    def to_internal_value(self, data):
-        print("Goes here")
-        return bytearray(data)
+from deepface import DeepFace
 
 
 class AttendanceSerializer(serializers.ModelSerializer):
@@ -46,7 +41,29 @@ class EmployeeCreateSerializer(serializers.ModelSerializer):
     image_3 = serializers.CharField()
     
     def create(self, validated_data):
+        if os.path.exists("input"):
+            shutil.rmtree('input')
+        os.makedirs('input')
+
+        test_dir = os.path.join("input/", "test.jpg")
+
         if validated_data['image_3'] != "null":
+            image_1 = base64.b64decode(validated_data['image_1'])
+            image_2 = base64.b64decode(validated_data['image_2'])
+            image_3 = base64.b64decode(validated_data['image_3'])
+
+            with open(test_dir, 'wb') as f:
+                f.write(image_1)
+                f.write(image_2)
+                f.write(image_3)
+
+            try:
+                DeepFace.detectFace(test_dir)
+                shutil.rmtree('input')
+            except ValueError:
+                shutil.rmtree('input')
+                # give sign to the serializer that it does not have face
+
             employee = Employee.objects.create(
                 employee_name = validated_data['employee_name'], 
                 department_id = validated_data['department'].department_id, 
@@ -54,14 +71,42 @@ class EmployeeCreateSerializer(serializers.ModelSerializer):
                 image_2 = bytearray(base64.b64decode(validated_data['image_2'])),
                 image_3 = bytearray(base64.b64decode(validated_data['image_3']))
             )
+
         elif validated_data['image_2'] != "null":
+            image_1 = base64.b64decode(validated_data['image_1'])
+            image_2 = base64.b64decode(validated_data['image_2'])
+
+            with open(test_dir, 'wb') as f:
+                f.write(image_1)
+                f.write(image_2)
+
+            try:
+                DeepFace.detectFace(test_dir)
+                shutil.rmtree('input')
+            except ValueError:
+                shutil.rmtree('input')
+                # give sign to the serializer that it does not have face
+
             employee = Employee.objects.create(
                 employee_name = validated_data['employee_name'], 
                 department_id = validated_data['department'].department_id, 
                 image_1 = bytearray(base64.b64decode(validated_data['image_1'])),
                 image_2 = bytearray(base64.b64decode(validated_data['image_2']))
             )
+
         elif validated_data['image_1'] != "null":
+            image_1 = base64.b64decode(validated_data['image_1'])
+
+            with open(test_dir, 'wb') as f:
+                f.write(image_1)
+
+            try:
+                DeepFace.detectFace(test_dir)
+                shutil.rmtree('input')
+            except ValueError:
+                shutil.rmtree('input')
+                # give sign to the serializer that it does not have face
+
             employee = Employee.objects.create(
                 employee_name = validated_data['employee_name'], 
                 department_id = validated_data['department'].department_id, 
