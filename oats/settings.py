@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-c#ny!54ea5m9z(99z!5k3dbc29@&!e)y$nf)zt)5a34ma1_5ok
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
 
 
@@ -83,9 +83,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'LSense_DB',
-        'USER': 'admin',
-        'PASSWORD': 'afor3002pls',
-        'HOST': "172.21.148.163",
+        'USER': 'postgres',
+        'PASSWORD': 'admin123',
+        'HOST': "34.133.153.119",
         'PORT': "5432"
     }
 }
