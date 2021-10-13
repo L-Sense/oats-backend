@@ -28,7 +28,7 @@ def populate_everything(request):
     employee_six = Employee.objects.create(employee_name='Lim Cheng Yun', department_id=2, image_1=image_to_bytea("backend/views/populate/U1921703D_1.jpg"))
     employee_seven = Employee.objects.create(employee_name='Ting Zhi Ying', department_id=2, image_1=image_to_bytea("backend/views/populate/U1922086G_1.jpg"))
     attendance_one = Attendance.objects.create(employee_id=1, in_time=datetime.strptime("08:00", "%H:%M").time())
-    attendance_two = Attendance.objects.create(employee_id=2, in_time=datetime.strptime("08:00", "%H:%M").time(), out_time=datetime.strptime("17:00", "%H:%M").time())
+    attendance_two = Attendance.objects.create(employee_id=5, in_time=datetime.strptime("08:00", "%H:%M").time(), out_time=datetime.strptime("17:00", "%H:%M").time())
     attendance_three = Attendance.objects.create(employee_id=3, in_time=datetime.strptime("08:30", "%H:%M").time(), out_time=datetime.strptime("17:00", "%H:%M").time(), status="Abnormal")
     attendance_four = Attendance.objects.create(employee_id=4, out_time=datetime.strptime("17:00", "%H:%M").time())
     return JsonResponse({
