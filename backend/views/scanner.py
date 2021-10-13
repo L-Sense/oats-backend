@@ -37,17 +37,21 @@ def scanner_photo(request):
             f.write(image)
     except:
         return Response({
-            "message": "invalid data",
+            "message": "server error, please contact the administrator",
             "data": [],
         }, 500)
 
     try:
-        # detector_backend='dlib' but dlib ModuleNotFoundError
         DeepFace.detectFace(test_dir)
     except ValueError:
         shutil.rmtree('input')
         return Response({
             "message": "face not detected",
+            "data": [],
+        }, 500)
+    except:
+        return Response({
+            "message": "server error, please contact the administrator",
             "data": [],
         }, 500)
 
@@ -194,9 +198,21 @@ def scanner_photo(request):
                         "data": []
                     }, 500)
 
+        except:
+            return Response({
+                "message": "server error, please contact the administrator",
+                "data": [],
+            }, 500)
+
     except ValueError:
         shutil.rmtree('input')
         return Response({
             "message": "server fails to detect the image database, ask the admin to reload the database",
+            "data": [],
+        }, 500)
+
+    except:
+        return Response({
+            "message": "server error, please contact the administrator",
             "data": [],
         }, 500)
