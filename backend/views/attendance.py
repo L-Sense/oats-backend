@@ -1,3 +1,4 @@
+from backend.decorators import token_required
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser 
@@ -9,6 +10,7 @@ from datetime import datetime, date
 from time import strftime
 
 @api_view(['GET', 'POST', 'DELETE'])
+@token_required
 def get_all(request):
     if request.method == 'GET':
         attendance = Attendance.objects.all()
@@ -50,6 +52,7 @@ def get_all(request):
             })
 
 @api_view(['GET'])
+@token_required
 def count_today(request):
     len_in = Attendance.objects.filter(date=date.today()).filter(in_time__isnull=False).count()
     len_out = Attendance.objects.filter(date=date.today()).filter(in_time__isnull=False).filter(out_time__isnull=False).count()
@@ -64,6 +67,7 @@ def count_today(request):
         })
 
 @api_view(['GET'])
+@token_required
 def count_date(request):
     date = request.query_params['date']
     parsed_date = datetime.strptime(date, "%d/%m/%Y").date()
@@ -80,6 +84,7 @@ def count_date(request):
         })
 
 @api_view(['GET'])
+@token_required
 def get_today(request):
     employee = Employee.objects.all()
     data = []
@@ -110,6 +115,7 @@ def get_today(request):
     })
 
 @api_view(['GET'])
+@token_required
 def get_date(request):
     date = request.query_params['date']
     parsed_date = datetime.strptime(date, "%d/%m/%Y").date()
@@ -142,6 +148,7 @@ def get_date(request):
     })
 
 @api_view(['POST'])
+@token_required
 def update_status(request):
     attendance_data = JSONParser().parse(request)
     attendance_data['date'] = datetime.strptime(attendance_data['date'], "%d/%m/%Y").date()
