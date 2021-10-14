@@ -1,3 +1,4 @@
+from backend.decorators import token_required
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser 
@@ -13,6 +14,7 @@ import shutil
 import base64
 
 @api_view(['GET'])
+@token_required
 def get_all(request):
     image = Employee.objects.all()
     serializer = ImageSerializer(image, many=True)
