@@ -25,7 +25,6 @@ def populate_everything(request):
     employee_three = Employee.objects.create(employee_name='Lim Zheng Xian', department_id=1, image_1=image_to_bytea("backend/views/populate/U1923211H_1.jpg"))
     employee_four = Employee.objects.create(employee_name='Luke Chin Peng Hao', department_id=1, image_1=image_to_bytea("backend/views/populate/U1921936J_3.jpg"))
     employee_five = Employee.objects.create(employee_name='Ferlita Halim', department_id=2, image_1=image_to_bytea("backend/views/populate/U1920961A_1.jpg"))
-    employee_six = Employee.objects.create(employee_name='Lim Cheng Yun', department_id=2, image_1=image_to_bytea("backend/views/populate/U1921703D_1.jpg"))
     attendance_one = Attendance.objects.create(employee_id=1, in_time=datetime.strptime("08:00", "%H:%M").time())
     attendance_two = Attendance.objects.create(employee_id=5, in_time=datetime.strptime("08:00", "%H:%M").time(), out_time=datetime.strptime("17:00", "%H:%M").time())
     attendance_three = Attendance.objects.create(employee_id=3, in_time=datetime.strptime("08:30", "%H:%M").time(), out_time=datetime.strptime("17:00", "%H:%M").time(), status="Abnormal")

@@ -90,8 +90,8 @@ def get_today(request):
                 "employee_id": person.employee_id,
                 "employee_name": person.employee_name,
                 "department_name": Department.objects.get(pk=person.department_id).department_name,
-                "in_time": attendance.in_time.strftime("%H:%M:%S"),
-                "out_time": attendance.out_time.strftime("%H:%M:%S"),
+                "in_time": attendance.in_time.strftime("%H:%M:%S") if attendance.in_time else attendance.in_time,
+                "out_time": attendance.out_time.strftime("%H:%M:%S") if attendance.out_time else attendance.out_time,
                 "status": attendance.status
             }
         except Attendance.DoesNotExist:
@@ -122,8 +122,8 @@ def get_date(request):
                 "employee_id": person.employee_id,
                 "employee_name": person.employee_name,
                 "department_name": Department.objects.get(pk=person.department_id).department_name,
-                "in_time": attendance.in_time.strftime("%H:%M:%S"),
-                "out_time": attendance.out_time.strftime("%H:%M:%S"),
+                "in_time": attendance.in_time.strftime("%H:%M:%S") if attendance.in_time else attendance.in_time,
+                "out_time": attendance.out_time.strftime("%H:%M:%S") if attendance.out_time else attendance.out_time,
                 "status": attendance.status
             }
         except:
