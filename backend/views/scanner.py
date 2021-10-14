@@ -3,7 +3,6 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
 
-from backend.decorators import token_required
 from backend.models import Attendance, Employee, Department
 from backend.serializers import *
 
