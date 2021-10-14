@@ -6,6 +6,7 @@ from backend.models import Attendance, Employee, Department
 from backend.serializers import *
 
 from datetime import datetime, date
+from time import strftime
 
 @api_view(['GET', 'POST', 'DELETE'])
 def get_all(request):
@@ -89,8 +90,8 @@ def get_today(request):
                 "employee_id": person.employee_id,
                 "employee_name": person.employee_name,
                 "department_name": Department.objects.get(pk=person.department_id).department_name,
-                "in_time": attendance.in_time,
-                "out_time": attendance.out_time,
+                "in_time": attendance.in_time.strftime("%H:%M:%S"),
+                "out_time": attendance.out_time.strftime("%H:%M:%S"),
                 "status": attendance.status
             }
         except Attendance.DoesNotExist:
@@ -121,8 +122,8 @@ def get_date(request):
                 "employee_id": person.employee_id,
                 "employee_name": person.employee_name,
                 "department_name": Department.objects.get(pk=person.department_id).department_name,
-                "in_time": attendance.in_time,
-                "out_time": attendance.out_time,
+                "in_time": attendance.in_time.strftime("%H:%M:%S"),
+                "out_time": attendance.out_time.strftime("%H:%M:%S"),
                 "status": attendance.status
             }
         except:
