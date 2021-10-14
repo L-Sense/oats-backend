@@ -1,5 +1,5 @@
 #from django.http import FileResponse
-
+from backend.decorators import token_required
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser 
@@ -9,6 +9,7 @@ from backend.serializers import *
 
 
 @api_view(['GET', 'POST'])
+@token_required
 def get_all(request):
     if request.method == "GET":
         employee = Employee.objects.all()
@@ -43,6 +44,7 @@ def get_all(request):
             })
 
 @api_view(['GET'])
+@token_required
 def get_one(request, employee_id):
     try:
         employee = Employee.objects.get(pk=employee_id)
@@ -67,6 +69,7 @@ def get_one(request, employee_id):
         })
 
 @api_view(['POST'])
+@token_required
 def create(request):
      #It should save it to server's localhost.
     employee_data = JSONParser().parse(request)
@@ -105,6 +108,7 @@ def create(request):
     
     
 @api_view(['PUT'])
+@token_required
 def update(request, employee_id):
     employee_data = JSONParser().parse(request)
     employee_serializer = EmployeeUpdateSerializer(data=employee_data)
