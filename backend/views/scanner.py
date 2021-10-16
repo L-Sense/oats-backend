@@ -15,7 +15,6 @@ from datetime import datetime, date, time
 
 from deepface import DeepFace
 
-#To fix bug, 15/10/2021
 import cv2
 
 
@@ -68,8 +67,7 @@ def scanner_photo(request):
             db_path="images",
             distance_metric='euclidean_l2'
         )
-        employee = parse(results["identity"][0])
-        employee_info = Employee.objects.get(pk=employee)
+        
         shutil.rmtree('input')
 
         if len(results) == 0:
@@ -77,6 +75,9 @@ def scanner_photo(request):
                 "message": "face does not exist in our database",
                 "data": [],
             }, 500)
+
+        employee = parse(results["identity"][0])
+        employee_info = Employee.objects.get(pk=employee)
 
         try:
             attendance = Attendance.objects.filter(
@@ -219,6 +220,7 @@ def scanner_photo(request):
         }, 500)
 
     except:
+        shutil.rmtree('input')
         return Response({
             "message": "server error, please contact the administrator",
             "data": [],
