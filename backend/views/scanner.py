@@ -11,6 +11,7 @@ import os
 import shutil
 import re
 import pytz
+import cv2
 from datetime import datetime, date, time
 
 from deepface import DeepFace
@@ -43,7 +44,8 @@ def scanner_photo(request):
         }, 500)
 
     try:
-        DeepFace.detectFace(test_dir)
+        image = cv2.imread(test_dir)
+        DeepFace.detectFace(image)
     except ValueError:
         shutil.rmtree('input')
         return Response({
@@ -215,7 +217,6 @@ def scanner_photo(request):
         }, 500)
 
     except:
-        shutil.rmtree('input')
         return Response({
             "message": "server error, please contact the administrator",
             "data": [],
