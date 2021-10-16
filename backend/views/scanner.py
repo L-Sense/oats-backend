@@ -15,6 +15,9 @@ from datetime import datetime, date, time
 
 from deepface import DeepFace
 
+#To fix bug, 15/10/2021
+import cv2
+
 
 def parse(dir):
     return int(re.findall(r"_\w+_", dir)[0][1:-1])
@@ -44,7 +47,9 @@ def scanner_photo(request):
         }, 500)
 
     try:
-        DeepFace.detectFace(test_dir)
+        #DeepFace.detectFace(test_dir)
+        image = cv2.imread(test_dir)
+        DeepFace.detectFace(image)
     except ValueError:
         shutil.rmtree('input')
         return Response({
