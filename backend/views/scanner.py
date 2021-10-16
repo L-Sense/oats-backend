@@ -21,7 +21,6 @@ def parse(dir):
 
 
 @api_view(['POST'])
-@token_required
 def scanner_photo(request):
     try:
         image_parse = JSONParser().parse(request)
