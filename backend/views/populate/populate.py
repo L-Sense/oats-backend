@@ -20,13 +20,13 @@ def reset_index():
 def populate_everything(request):
     department_one = Department.objects.create(department_name='SCSE', late_threshold=15)
     department_two = Department.objects.create(department_name='SPMS', late_threshold=15)
-    employee_one = Employee.objects.create(employee_name='Leonardo Irvin Pratama', department_id=1, image_1=image_to_bytea("backend/views/populate/U1920301J_1.jpg"))
-    employee_two = Employee.objects.create(employee_name='Lim Zheng Xian', department_id=1, image_1=image_to_bytea("backend/views/populate/U1923211H_1.jpg"))
-    employee_three = Employee.objects.create(employee_name='Luke Chin Peng Hao', department_id=1, image_1=image_to_bytea("backend/views/populate/U1921936J_3.jpg"))
-    employee_four = Employee.objects.create(employee_name='Ferlita Halim', department_id=2, image_1=image_to_bytea("backend/views/populate/U1920961A_1.jpg"))
-    attendance_one = Attendance.objects.create(employee_id=2, in_time=datetime.strptime("08:00", "%H:%M").time(), out_time=datetime.strptime("17:00", "%H:%M").time())
-    attendance_two = Attendance.objects.create(employee_id=3, in_time=datetime.strptime("08:30", "%H:%M").time(), out_time=datetime.strptime("17:00", "%H:%M").time(), status="Abnormal")
-    attendance_three = Attendance.objects.create(employee_id=4, out_time=datetime.strptime("17:00", "%H:%M").time())
+    employee_two = Employee.objects.create(employee_name='Leonardo Irvin Pratama', department_id=1, image_1=image_to_bytea("backend/views/populate/U1920301J_1.jpg"))
+    employee_three = Employee.objects.create(employee_name='Lim Zheng Xian', department_id=1, image_1=image_to_bytea("backend/views/populate/U1923211H_1.jpg"))
+    employee_four = Employee.objects.create(employee_name='Luke Chin Peng Hao', department_id=1, image_1=image_to_bytea("backend/views/populate/U1921936J_3.jpg"))
+    employee_five = Employee.objects.create(employee_name='Ferlita Halim', department_id=2, image_1=image_to_bytea("backend/views/populate/U1920961A_1.jpg"))
+    attendance_two = Attendance.objects.create(employee_id=2, in_time=datetime.strptime("08:00", "%H:%M").time(), out_time=datetime.strptime("17:00", "%H:%M").time())
+    attendance_three = Attendance.objects.create(employee_id=3, in_time=datetime.strptime("08:30", "%H:%M").time(), out_time=datetime.strptime("17:00", "%H:%M").time(), status="Abnormal")
+    attendance_four = Attendance.objects.create(employee_id=4, out_time=datetime.strptime("17:00", "%H:%M").time())
     return JsonResponse({
         'message': 'Data inserted successfully.'
     }, status=200)
