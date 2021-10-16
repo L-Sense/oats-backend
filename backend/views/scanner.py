@@ -44,7 +44,7 @@ def scanner_photo(request):
         }, 500)
 
     try:
-        DeepFace.detectFace(image)
+        DeepFace.detectFace(test_dir)
     except ValueError:
         shutil.rmtree('input')
         return Response({
