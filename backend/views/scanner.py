@@ -216,8 +216,9 @@ def scanner_photo(request):
             "data": [],
         }, 500)
 
-    except:
+    except Exception as e:
+        print(e)
         return Response({
-            "message": "server error, please contact the administrator",
+            "message": e,
             "data": [],
         }, 500)
