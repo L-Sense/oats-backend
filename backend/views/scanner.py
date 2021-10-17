@@ -39,7 +39,7 @@ def scanner_photo(request):
             f.write(image)
     except:
         return Response({
-            "message": "server error, please contact the administrator",
+            "message": "parser error, please contact the administrator",
             "data": [],
         }, 500)
 
@@ -54,7 +54,7 @@ def scanner_photo(request):
         }, 500)
     except:
         return Response({
-            "message": "server error, please contact the administrator",
+            "message": "unknown detection error, please contact the administrator",
             "data": [],
         }, 500)
 
@@ -199,13 +199,13 @@ def scanner_photo(request):
                     }, 200)
                 else:
                     return Response({
-                        "message": "server error",
+                        "message": "attendance parsing error, please contact the administrator",
                         "data": []
                     }, 500)
 
         except:
             return Response({
-                "message": "server error, please contact the administrator",
+                "message": "find image error, please contact the administrator",
                 "data": [],
             }, 500)
 
