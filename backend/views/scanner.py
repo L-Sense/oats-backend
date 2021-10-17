@@ -10,7 +10,6 @@ import base64
 import os
 import shutil
 import re
-import pytz
 import cv2
 from datetime import datetime, date, time
 
@@ -28,7 +27,6 @@ def scanner_photo(request):
         image_string = image_parse['image']
         check = image_parse['isCheckin']
         image = base64.b64decode(image_string)
-        tz = pytz.timezone('Singapore')
 
         if os.path.exists("input"):
             shutil.rmtree('input')
@@ -92,9 +90,9 @@ def scanner_photo(request):
                         },
                     }, 200)
                 else:
-                    attendance.in_time = datetime.now(tz).time()
+                    attendance.in_time = datetime.now().time()
                     threshold = datetime.combine(date.today(), time(8, 0, 0))
-                    diff = datetime.now(tz) - threshold
+                    diff = datetime.now() - threshold
                     late = abs(diff.total_seconds()) > 900
                     if late:
                         attendance.status = "Abnormal"
@@ -122,9 +120,9 @@ def scanner_photo(request):
                         },
                     }, 200)
                 else:
-                    attendance.out_time = datetime.now(tz).time()
+                    attendance.out_time = datetime.now().time()
                     threshold = datetime.combine(date.today(), time(17, 0, 0))
-                    diff = datetime.now(tz) - threshold
+                    diff = datetime.now() - threshold
                     late = abs(diff.total_seconds()) > 900
                     if late:
                         attendance.status = "Abnormal"
@@ -143,13 +141,13 @@ def scanner_photo(request):
         except Attendance.DoesNotExist:
             if check:
                 threshold = datetime.combine(date.today(), time(8, 0, 0))
-                diff = datetime.now(tz) - threshold
+                diff = datetime.now() - threshold
                 late = abs(diff.total_seconds()) > 900
                 status = "Abnormal" if late else "Normal"
                 attendance_data = {
                     "date": date.today(),
                     "employee": employee,
-                    "in_time": datetime.now(tz).time(),
+                    "in_time": datetime.now().time(),
                     "status": status
                 }
                 attendance_serializer = AttendanceSerializer(
@@ -174,13 +172,13 @@ def scanner_photo(request):
 
             else:
                 threshold = datetime.combine(date.today(), time(17, 0, 0))
-                diff = datetime.now(tz) - threshold
+                diff = datetime.now() - threshold
                 late = abs(diff.total_seconds()) > 900
                 status = "Abnormal" if late else "Normal"
                 attendance_data = {
                     "date": date.today(),
                     "employee": employee,
-                    "out_time": datetime.now(tz).time(),
+                    "out_time": datetime.now().time(),
                     "status": status
                 }
                 attendance_serializer = AttendanceSerializer(
@@ -217,8 +215,7 @@ def scanner_photo(request):
         }, 500)
 
     except Exception as e:
-        print(e)
         return Response({
-            "message": e,
+            "message": "server error, please contact the administrator",
             "data": [],
         }, 500)
