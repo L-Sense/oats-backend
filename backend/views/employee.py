@@ -84,28 +84,6 @@ def create(request):
         return Response({
             "message": "invalid input"
         })
-"""
-def create(request):
-     #It should save it to server's localhost.
-    employee_data = JSONParser().parse(request)
-    try:
-        employee = Employee.objects.get(employee_id=employee_id)
-        return Response({
-            "message": "employee record already found"
-        })
-    except Employee.DoesNotExist:
-        employee_serializer = EmployeeCreateSerializer(data=employee_data)
-        if employee_serializer.is_valid():
-            employee_serializer.save()
-            return Response({
-                "message": "new employee created",
-                "data": employee_serializer.data
-            })
-        return Response({
-            "message": "invalid input"
-        })
-"""
-    
     
 @api_view(['PUT'])
 @token_required
@@ -129,24 +107,3 @@ def update(request, employee_id):
     return Response({
             "message": "invalid input"
         })
-
-"""
-# For displaying employee image. Not complete.
-
-@api_view(['GET'])
-def get_image(request):
-    employee = Employee.objects.all()
-    data = []
-    for person in employee:
-        print(person.employee_id)
-        attendance = Attendance.objects.filter(date=date.today()).get(employee=person.employee_id)
-        info = {
-            "employee_id": person.employee_id,
-            "employee_name": person.employee_name,
-            "department_id": person.department_id,
-            "department_name": Department.objects.get(pk=person.department_id).department_name,
-        }
-        data.append(info)
-
-    return FileResponse({person.image_1}),
-"""
