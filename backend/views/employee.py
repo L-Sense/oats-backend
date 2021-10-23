@@ -21,7 +21,6 @@ def get_all(request):
                 "employee_name": person.employee_name,
                 "department_id": person.department_id,
                 "department_name": Department.objects.get(pk=person.department_id).department_name,
-                "avatar": "Image of the guy?"
             }
             data.append(info)
 
