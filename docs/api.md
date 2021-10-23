@@ -17,9 +17,9 @@ HTTP Methods used:
 Request Parameter:
 
     {
-        "admin_name": "<admin_name>",
-        "username": "<username>",
-        "password": "<password>",
+        "admin_name": <admin_name>,
+        "username": <username>,
+        "password": <password>,
     }
 
 Response Data:
@@ -36,8 +36,8 @@ Response Data:
 Request Parameter:
 
     {
-        "username": "<username>",
-        "password": "<password>",
+        "username": <username>,
+        "password": <password>,
     }
 
 Response Data:
@@ -46,7 +46,7 @@ Response Data:
         "message": "token acquired",
         "data":
             {
-                "Authorization": "Token with 1 day expiry date",
+                "Authorization": <Token with 1 day expiry date>,
             },
     }
 
@@ -71,7 +71,9 @@ Response Data:
 
 #### `GET /employee`
 
-Request Parameter: `null`
+Request Parameter:
+
+    {}
 
 Response Data:
 
@@ -80,10 +82,10 @@ Response Data:
         "data":
             [
                 {
-                    "employee_id": "<employee_id>",
-                    "employee_name": "<employee_name>",
-                    "department_id": "<department_id>",
-                    "department_name": "<department_name>"
+                    "employee_id": <employee_id>,
+                    "employee_name": <employee_name>,
+                    "department_id": <department_id>,
+                    "department_name": <department_name>
                 },
             ]
     }
@@ -92,7 +94,9 @@ Response Data:
 
 #### `GET /employee/<employee id>`
 
-Request Parameter: `null`
+Request Parameter:
+    
+    {}
 
 Response Data:
 
@@ -101,17 +105,12 @@ Response Data:
         "data":
             [
                 {
-                    "employee_id": "<employee_id>",
-                    "employee_name": "<employee_name>",
-                    "department_id": "<department_id>",
-                    "department_name": "<department_name>"
+                    "employee_id": <employee_id>,
+                    "employee_name": <employee_name>,
+                    "department_id": <department_id>,
+                    "department_name": <department_name>
                 },
             ]
-    }
-
-    {
-        "message": "fail",
-        "error": "<error message .toString()>"
     }
 
 ### Update specific employee information
@@ -121,19 +120,15 @@ Response Data:
 Request Parameter:
 
     {
-        "employee_name": "<employee_name>",
-        "department_id": "<department_id>"
+        "employee_name": <employee_name>,
+        "department_id": <department_id>
     }
 
 Response Data:
 
     {
-        "message": "employee updated",
-    }
-
-    {
-        "message": "fail",
-        "error": "<error message .toString()>"
+        "message": "employee data updated",
+        "data": <employee_data>
     }
 
 ### Create new employee
@@ -143,32 +138,30 @@ Response Data:
 Request Parameter:
 
     {
-        "employee_id": "<employee_id>",
-        "employee_name": "<employee_name>",
-        "department_id": "<department_id>"
+        "employee_id": <employee_id>,
+        "employee_name": <employee_name>,
+        "department_id": <department_id>
         "images": {
-            "image_1": "<byte64 image string>",
-            "image_2": "<byte64 image string>",
-            "image_3": "<byte64 image string>"
+            "image_1": <byte64 image string>,
+            "image_2": <byte64 image string>,
+            "image_3": <byte64 image string>
         }
     }
 
 Response Data:
 
     {
-        "message": "employee added",
-    }
-
-    {
-        "message": "fail",
-        "error": "<error message .toString()>"
+        "message": "new employee created",
+        "data": <employee_data>
     }
 
 ### Check in and out count information today
 
 #### `GET /attendance/counttoday`
 
-Request Parameter: `null`
+Request Parameter:
+
+    {}
 
 Response Data:
 
@@ -206,7 +199,9 @@ Response Data:
 
 #### `GET /attendance/gettoday`
 
-Request Parameter: `null`
+Request Parameter:
+
+    {}
 
 Response Data:
 
@@ -215,20 +210,14 @@ Response Data:
         "data":
             [
                 {
-                    "employee_id": "<employee_id>",
-                    "employee_name": "<employee_name>",
-                    "department_id": "<department_id>",
-                    "department_name": "<department_name>",
-                    "check_in_time": "<Properly formatted time OR - >",
-                    "check_out_time": "<Properly formatted time OR - >",
-                    "status_flag": "<Punctual, AWOL, Late, Leave, MC>",
+                    "employee_id": <employee_id>,
+                    "employee_name": <employee_name>,
+                    "department_name": <department_name>,
+                    "in_time": <Properly formatted time OR None>,
+                    "out_time": <Properly formatted time OR None>,
+                    "status": <Normal OR Abnormal OR Leave OR No Show>,
                 }
             ]
-    }
-
-    {
-        "message": "fail",
-        "error": "<error message .toString()>"
     }
 
 ### Get specific date's attendance record
@@ -238,7 +227,7 @@ Response Data:
 Request Parameter:
 
     {
-        "date": "<date>",
+        "date": <date>,
     }
 
 Response Data:
@@ -248,20 +237,14 @@ Response Data:
         "data":
             [
                 {
-                    "attendance_id": "<attendance_id>,
-                    "employee_id": "<employee_id>",
-                    "employee_name": "<employee_name>",
-                    "department_id": "<department_id>",
-                    "department_name": "<department_name>",
-                    "check_in_out": "<boolean>",
-                    "status_flag": "<Punctual, AWOL, Late, Leave, MC>",
+                    "employee_id": <employee_id>,
+                    "employee_name": <employee_name>,
+                    "department_name": <department_name>,
+                    "in_time": <Properly formatted time OR None>,
+                    "out_time": <Properly formatted time OR None>,
+                    "status": <Normal OR Abnormal OR Leave OR No Show>,
                 }
             ]
-    }
-
-    {
-        "message": "fail",
-        "error": "<error message .toString()>"
     }
 
 ### Update attendance status manually
@@ -271,7 +254,7 @@ Response Data:
 Request Parameter:
 
     {
-        "date": "<date>",
+        "date": <date>,
         "employee_id": <employee_id>,
         "status": <status>
     }
@@ -283,20 +266,14 @@ Response Data:
         "data":
             [
                 {
-                    "attendance_id": "<attendance_id>,
-                    "employee_id": "<employee_id>",
-                    "employee_name": "<employee_name>",
-                    "department_id": "<department_id>",
-                    "department_name": "<department_name>",
-                    "check_in_out": "<boolean>",
-                    "status_flag": "<Punctual, AWOL, Late, Leave, MC>",
+                    "employee_id": <employee_id>,
+                    "employee_name": <employee_name>,
+                    "department_name": <department_name>,
+                    "in_time": <Properly formatted time OR None>,
+                    "out_time": <Properly formatted time OR None>,
+                    "status": <Normal OR Abnormal OR Leave OR No Show>,
                 }
             ]
-    }
-
-    {
-        "message": "fail",
-        "error": "<error message .toString()>"
     }
 
 ### Add attendance record of employee manually
@@ -306,23 +283,16 @@ Response Data:
 Request Parameter:
 
     {
-        "employee_id": "<employee_id>",
-        "date": "<date>",
-        "in_time": "<time>",
-        "out_time": "<time>",
-        "status": "<string>"
+        "date": <date>,
+        "employee": <employee_id>,
+        "status": <valid_status_flag>
     }
 
 Response Data:
 
     {
         "message": "attendance recorded",
-        "attendance_id": "<attendance_id>"
-    }
-
-    {
-        "message": "fail",
-        "error": "<error message .toString()>"
+        "attendance_id": <attendance_id>
     }
 
 ### Delete attendance status flag of employee manually
@@ -332,20 +302,15 @@ Response Data:
 Request Parameter:
 
     {
-        "employee_id": "<employee_id>",
-        "date": "<date>",
+        "employee_id": <employee_id>,
+        "date": <date>,
     }
 
 Response Data:
 
     {
         "message": "attendance record deleted successfully",
-        "attendance_id": "<attendance_id>"
-    }
-
-    {
-        "message": "fail",
-        "error": "<error message .toString()>"
+        "attendance_id": <attendance_id>
     }
 
 ## Scanner Application
@@ -357,8 +322,8 @@ Response Data:
 Request Parameter:
 
     {
-        "image": "<base64 image string>",
-        "isCheckin": "<boolean>",
+        "image": <base64 image string>,
+        "isCheckin": <boolean>,
     }
 
 Response Data:
@@ -367,25 +332,23 @@ Response Data:
         "message": "employee found",
         "data":
             {
-                "id": "<employee_id>",
-                "employee_name": "<employee_name>",
-                "department_id": "<department_id>",
-                "department_name": "<department_name>",
+                "id": <employee_id>,
+                "employee_name": <employee_name>,
+                "department_id": <department_id>,
+                "department_name": <department_name>,
             },
     }
 
-    {
-        "message": "attendance already recorded",
-        "status": 500
-    }
 
 ## Image Retrieval
 
-### Retrieve all the images in the database to be stored locally
+### Retrieve all the images in the database to be stored locally on server
 
 #### `GET /image`
 
-Request Parameter: `null`
+Request Parameter:
+
+    {}
 
 Response Data:
 
@@ -394,7 +357,7 @@ Response Data:
         "data":
             [
                 {
-                    "image": "<base64 image string>",
+                    "image": <base64 image string>,
                     "file_name": <file_name>
                 }
             ]
