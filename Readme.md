@@ -22,3 +22,8 @@ pip install django-filter
 Protect login-required API:
 
 - use `@token_required` wrapper before function to check if user is authorized before accessing th page.
+
+
+Admin account:
+- username: admin
+- password: password1234
