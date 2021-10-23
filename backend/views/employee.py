@@ -54,7 +54,6 @@ def get_one(request, employee_id):
             "employee_name": employee.employee_name,
             "department_id": employee.department_id,
             "department_name": Department.objects.get(pk=employee.department_id).department_name,
-            "avatar": "Image of the guy?"
         }
     })
     except Employee.DoesNotExist:
@@ -70,7 +69,6 @@ def get_one(request, employee_id):
 @api_view(['POST'])
 @token_required
 def create(request):
-     #It should save it to server's localhost.
     employee_data = JSONParser().parse(request)
     employee_serializer = EmployeeCreateSerializer(data=employee_data)
     if employee_serializer.is_valid():
