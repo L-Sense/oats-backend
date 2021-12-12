@@ -27,3 +27,8 @@ Protect login-required API:
 Admin account:
 - username: admin
 - password: password1234
+
+
+Other repositories:
+- [OATS Admin Dashboard (Frontend)](https://github.com/L-Sense/OATS-Admin-Dashboard)
+- [OATS Scanner (Frontend)](https://github.com/L-Sense/oats-scanner-fe)
